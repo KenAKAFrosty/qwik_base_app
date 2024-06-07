@@ -8,10 +8,14 @@
  * - https://bun.sh/docs/api/http
  *
  */
+globalThis.TextEncoderStream ||= _TextEncoderStream_polyfill;
+globalThis.TextDecoderStream ||= _TextDecoderStream_polyfill;
+
 import { createQwikCity } from "@builder.io/qwik-city/middleware/bun";
 import qwikCityPlan from "@qwik-city-plan";
 import { manifest } from "@qwik-client-manifest";
 import render from "./entry.ssr";
+import { _TextDecoderStream_polyfill, _TextEncoderStream_polyfill } from "../adapters/bun/polyfills";
 
 // Create the Qwik City Bun middleware
 const { router, notFound, staticFile } = createQwikCity({
