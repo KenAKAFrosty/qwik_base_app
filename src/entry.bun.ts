@@ -76,4 +76,5 @@ Bun.serve({
     }
   },
   port,
+  reusePort: true
 });
