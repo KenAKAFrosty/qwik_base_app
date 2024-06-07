@@ -28,20 +28,52 @@ console.log(`Server started: http://localhost:${port}/`);
 
 Bun.serve({
   async fetch(request: Request) {
-    console.log('Handling request', request.url.toString());
-    const staticResponse = await staticFile(request);
-    if (staticResponse) {
-      return staticResponse;
-    }
+    try {
+      console.log("Handling request", request.url.toString());
+      const staticResponse = await staticFile(request).catch((e) => {
+        console.log("Bun serve staticFile error", e);
+        return null;
+      });
 
-    // Server-side render this request with Qwik City
-    const qwikCityResponse = await router(request);
-    if (qwikCityResponse) {
-      return qwikCityResponse;
-    }
+      if (staticResponse) {
+        staticResponse.headers.set(
+          "Referrer-Policy",
+          "no-referrer-when-downgrade"
+        );
+        staticResponse.headers.set(
+          "Strict-Transport-Security",
+          "max-age=31536000; includeSubDomains; preload"
+        );
+        staticResponse.headers.set("X-Frame-Options", "SAMEORIGIN");
+        staticResponse.headers.set(
+          "Permissions-Policy",
+          "autoplay=(*), fullscreen=(*), geolocation=(), microphone=(), camera=(), payment=()"
+        );
+        staticResponse.headers.set(
+          "Cache-Control",
+          "public, max-age=30, s-maxage=2419200"
+        );
+        return staticResponse;
+      }
 
-    // Path not found
-    return notFound(request);
+      // Server-side render this request with Qwik City
+      const qwikCityResponse = await router(request).catch((e) => {
+        console.log("Bun serve router error", e);
+        return null;
+      });
+      if (qwikCityResponse) {
+        return qwikCityResponse;
+      }
+
+      // Path not found
+      return notFound(request).catch((e) => {
+        console.log("Bun serve notFound error:", e);
+        return new Response("Not found", { status: 404 });
+      });
+    } catch (e) {
+      console.log("Bun serve error:", e);
+      return new Response("Internal server error", { status: 500 });
+    }
   },
   port,
 });
