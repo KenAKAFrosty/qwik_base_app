@@ -9,7 +9,7 @@ import Starter from "../components/starter/next-steps/next-steps";
 export default component$(() => {
   return (
     <>
-    <h1>Base Qwik App!!</h1>
+    <h1>💙Base Qwik App!!</h1>
       <Hero />
       <Starter />
 
