@@ -1,15 +1,23 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 
 import Counter from "../components/starter/counter/counter";
 import Hero from "../components/starter/hero/hero";
 import Infobox from "../components/starter/infobox/infobox";
 import Starter from "../components/starter/next-steps/next-steps";
 
+export const useExampleLoader = routeLoader$(() => {
+  const random = Math.random();
+  return {
+    random,
+  };
+});
+
 export default component$(() => {
+  const random = useExampleLoader();
   return (
     <>
-    <h1>💙Base Qwik App!!</h1>
+      <h1>💙Base Qwik App!! {random.value.random}</h1>
       <Hero />
       <Starter />
 
