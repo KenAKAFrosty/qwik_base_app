@@ -28,6 +28,7 @@ console.log(`Server started: http://localhost:${port}/`);
 
 Bun.serve({
   async fetch(request: Request) {
+    console.log('Handling request', request.url.toString());
     const staticResponse = await staticFile(request);
     if (staticResponse) {
       return staticResponse;
