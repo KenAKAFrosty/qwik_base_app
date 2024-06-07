@@ -15,6 +15,7 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "vite build -c adapters/bun/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
@@ -23,12 +24,14 @@
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
+    "serve": "bun server/entry.bun.js",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.5.5",
     "@builder.io/qwik-city": "^1.5.5",
+    "@types/bun": "*",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
