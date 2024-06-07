@@ -17,12 +17,11 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [
       bunServerAdapter({
-        ssg: null
-        //  {
-        //   include: ["/*"],
-        //   origin: "https://yoursite.dev",
-        //   maxWorkers: 1, // Limit Workers to 1, otherwise SSG will hang when compiling Qwik City app with `bun run --bun build`.
-        // },
+        ssg:{
+          include: ["/*"],
+          origin: "https://testing.frostytools.com",
+          maxWorkers: 1, // Limit Workers to 1, otherwise SSG will hang when compiling Qwik City app with `bun run --bun build`.
+        },
       }),
     ],
   };
