@@ -11,17 +11,18 @@ export default extendConfig(baseConfig, () => {
     build: {
       ssr: true,
       rollupOptions: {
-        input: ["src/entry.bun.ts", "@qwik-city-plan"],
+        input: ["src/entry.bun.ts", "src/entry.bun_cluster.ts", "@qwik-city-plan"],
       },
       minify: false,
     },
     plugins: [
       bunServerAdapter({
-        ssg: {
-          include: ["/*"],
-          origin: "https://yoursite.dev",
-          maxWorkers: 1, // Limit Workers to 1, otherwise SSG will hang when compiling Qwik City app with `bun run --bun build`.
-        },
+        ssg: null
+        //  {
+        //   include: ["/*"],
+        //   origin: "https://yoursite.dev",
+        //   maxWorkers: 1, // Limit Workers to 1, otherwise SSG will hang when compiling Qwik City app with `bun run --bun build`.
+        // },
       }),
     ],
   };
