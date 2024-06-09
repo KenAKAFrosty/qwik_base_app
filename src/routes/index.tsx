@@ -17,7 +17,7 @@ export default component$(() => {
   const random = useExampleLoader();
   return (
     <>
-      <h1>💙Base Qwik App!! {random.value.random}</h1>
+      <h1>💙WEEEEEEEEEEEE Base Qwik App!! {random.value.random}</h1>
       <Hero />
       <Starter />
 
